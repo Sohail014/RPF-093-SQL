@@ -1,0 +1,397 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database payroll_service;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbookservice |
+| ebookshop          |
+| information_schema |
+| mysql              |
+| payroll_service    |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.03 sec)
+
+mysql> use payroll_service;
+Database changed
+mysql> create table employee_payroll  (id int not null auto_increment, name varchar(50) not null, salary double not null, start date not null, primary key(id));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into employee_payroll (name , salary, start) values ('Bill', 5000000.00, '2021-05-08'), ('sohail', 300000.00, '2020-02-24'), ('kabeer', 6000000.00, '2019-11-17');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+------------+
+| id | name   | salary  | start      |
++----+--------+---------+------------+
+|  1 | Bill   | 5000000 | 2021-05-08 |
+|  2 | sohail |  300000 | 2020-02-24 |
+|  3 | kabeer | 6000000 | 2019-11-17 |
++----+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT salary FROM employee_payroll WHERE name = 'bill'
+    -> SELECT salary FROM employee_payroll WHERE name = 'bill';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT salary FROM employee_payroll WHERE name = 'bill'' at line 2
+mysql> select salary from employee_payroll where name ='bili';
+Empty set (0.00 sec)
+
+mysql> select salary from employee_payroll where name = 'Bill';
++---------+
+| salary  |
++---------+
+| 5000000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select salary from employee_payroll where start between cast ('2018-01-01' as date) and date (now());
+ERROR 1584 (42000): Incorrect parameters in the call to stored function `cast`
+mysql> select salary from employee_payroll where start between cast ('2018-01-01' as date) and date (now());
+ERROR 1584 (42000): Incorrect parameters in the call to stored function `cast`
+mysql> select salary from employee_payroll where start between cast ('2020-01-01' as date) and date (now());
+ERROR 1584 (42000): Incorrect parameters in the call to stored function `cast`
+mysql> select salary from employee_payroll where start between cast ('2020-01-01' as date) and date (now());
+ERROR 1584 (42000): Incorrect parameters in the call to stored function `cast`
+mysql> select salary from employee_payroll where start between cast ('2018-01-01' as date) and date (now());
+ERROR 1584 (42000): Incorrect parameters in the call to stored function `cast`
+mysql> select salary from employee_payroll where start between cast ('2020-02-24' as date) and date (now());
+ERROR 1584 (42000): Incorrect parameters in the call to stored function `cast`
+mysql> select salary from employee_payroll where start between cast('2020-02-24' as date) and date (now());
++---------+
+| salary  |
++---------+
+| 5000000 |
+|  300000 |
++---------+
+2 rows in set (0.01 sec)
+
+mysql> alter table employee_payroll add gender char(1) after name;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+
+| id | name   | gender | salary  | start      |
++----+--------+--------+---------+------------+
+|  1 | Bill   | NULL   | 5000000 | 2021-05-08 |
+|  2 | sohail | NULL   |  300000 | 2020-02-24 |
+|  3 | kabeer | NULL   | 6000000 | 2019-11-17 |
++----+--------+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> update employee_payroll set gender = 'M' where id = 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+
+| id | name   | gender | salary  | start      |
++----+--------+--------+---------+------------+
+|  1 | Bill   | M      | 5000000 | 2021-05-08 |
+|  2 | sohail | NULL   |  300000 | 2020-02-24 |
+|  3 | kabeer | NULL   | 6000000 | 2019-11-17 |
++----+--------+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> update employee_payroll set gender = 'M' where id = 3; or 'F' where id = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'or 'F' where id = 2' at line 1
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+
+| id | name   | gender | salary  | start      |
++----+--------+--------+---------+------------+
+|  1 | Bill   | M      | 5000000 | 2021-05-08 |
+|  2 | sohail | NULL   |  300000 | 2020-02-24 |
+|  3 | kabeer | M      | 6000000 | 2019-11-17 |
++----+--------+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> update employee_payroll set gender = 'F' where id = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+
+| id | name   | gender | salary  | start      |
++----+--------+--------+---------+------------+
+|  1 | Bill   | M      | 5000000 | 2021-05-08 |
+|  2 | sohail | F      |  300000 | 2020-02-24 |
+|  3 | kabeer | M      | 6000000 | 2019-11-17 |
++----+--------+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> describe employee_payroll;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(50) | NO   |     | NULL    |                |
+| gender | char(1)     | YES  |     | NULL    |                |
+| salary | double      | NO   |     | NULL    |                |
+| start  | date        | NO   |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+5 rows in set (0.03 sec)
+
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+
+| id | name   | gender | salary  | start      |
++----+--------+--------+---------+------------+
+|  1 | Bill   | M      | 5000000 | 2021-05-08 |
+|  2 | sohail | F      |  300000 | 2020-02-24 |
+|  3 | kabeer | M      | 6000000 | 2019-11-17 |
++----+--------+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(salary) from employee_payrol;
+ERROR 1146 (42S02): Table 'payroll_service.employee_payrol' doesn't exist
+mysql> select sum (salary) from employee_payroll;
+ERROR 1630 (42000): FUNCTION payroll_service.sum does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select sum (salary) from employee_payroll;
+ERROR 1630 (42000): FUNCTION payroll_service.sum does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select sum (salary) from employee_payroll;
+ERROR 1630 (42000): FUNCTION payroll_service.sum does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select sum(salary) from employee_payroll;
++-------------+
+| sum(salary) |
++-------------+
+|    11300000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employee_payroll;
++--------------------+
+| avg(salary)        |
++--------------------+
+| 3766666.6666666665 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employee_payroll;
++-------------+
+| min(salary) |
++-------------+
+|      300000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employee_payroll;
++-------------+
+| max(salary) |
++-------------+
+|     6000000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary) from employee_payroll;
++---------------+
+| count(salary) |
++---------------+
+|             3 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee_payroll where gender = 'M' group by gender;
++----+------+--------+---------+------------+
+| id | name | gender | salary  | start      |
++----+------+--------+---------+------------+
+|  1 | Bill | M      | 5000000 | 2021-05-08 |
++----+------+--------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> select count(gender) from employee_payroll where gender = 'M' group by gender;
++---------------+
+| count(gender) |
++---------------+
+|             2 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(gender) from employee_payroll where gender = 'F' group by gender;
++---------------+
+| count(gender) |
++---------------+
+|             1 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employee_payroll where gender = 'F' group by gender;
++-------------+
+| sum(salary) |
++-------------+
+|      300000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employee_payroll where gender = 'M' group by gender;
++-------------+
+| sum(salary) |
++-------------+
+|    11000000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employee_payroll where gender = 'M' group by gender;
++-------------+
+| avg(salary) |
++-------------+
+|     5500000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employee_payroll where gender = 'F' group by gender;
++-------------+
+| avg(salary) |
++-------------+
+|      300000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employee_payroll where gender = 'M' group by gender;
++-------------+
+| max(salary) |
++-------------+
+|     6000000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employee_payroll where gender = 'F' group by gender;
++-------------+
+| max(salary) |
++-------------+
+|      300000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employee_payroll where gender = 'M' group by gender;
++-------------+
+| min(salary) |
++-------------+
+|     5000000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employee_payroll where gender = 'F' group by gender;
++-------------+
+| min(salary) |
++-------------+
+|      300000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(gender) from employee_payroll where gender = 'M' group by gender;
++---------------+
+| count(gender) |
++---------------+
+|             2 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(gender) from employee_payroll where gender = 'F' group by gender;
++---------------+
+| count(gender) |
++---------------+
+|             1 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE employee_payroll    -> ADD COLUMN `phone` int  after `start`,    -> ADD COLUMN `address` varchar(120)  after `phone`,    -> ADD COLUMN `department` varchar(30) not null after `address`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> ADD COLUMN `phone` int  after `start`,    -> ADD COLUMN `address` varchar(120' at line 1
+mysql> ALTER TABLE employee_payroll  ADD COLUMN `phone` int  after `start`, ADD COLUMN `address` varchar(120)  after `phone`, ADD COLUMN `department` varchar(30) not null after `address`;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+-------+---------+------------+
+| id | name   | gender | salary  | start      | phone | address | department |
++----+--------+--------+---------+------------+-------+---------+------------+
+|  1 | Bill   | M      | 5000000 | 2021-05-08 |  NULL | NULL    |            |
+|  2 | sohail | F      |  300000 | 2020-02-24 |  NULL | NULL    |            |
+|  3 | kabeer | M      | 6000000 | 2019-11-17 |  NULL | NULL    |            |
++----+--------+--------+---------+------------+-------+---------+------------+
+3 rows in set (0.03 sec)
+
+mysql> update employee_payroll set department = 'science';
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> update employee_payroll set department = 'biology'; where id = 2
+Query OK, 3 rows affected (0.03 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+    -> update employee_payroll set department = 'english'; where id = 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id = 2
+update employee_payroll set department = 'english'' at line 1
+    -> update employee_payroll set department = 'english'; where id = 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id = 3
+update employee_payroll set department = 'english'' at line 1
+    -> select * from employee_payroll;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id = 3
+select * from employee_payroll' at line 1
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+-------+---------+------------+
+| id | name   | gender | salary  | start      | phone | address | department |
++----+--------+--------+---------+------------+-------+---------+------------+
+|  1 | Bill   | M      | 5000000 | 2021-05-08 |  NULL | NULL    | biology    |
+|  2 | sohail | F      |  300000 | 2020-02-24 |  NULL | NULL    | biology    |
+|  3 | kabeer | M      | 6000000 | 2019-11-17 |  NULL | NULL    | biology    |
++----+--------+--------+---------+------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> update employee_payroll set department = 'physics',where id =2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id =2' at line 1
+mysql> update employee_payroll set department = 'physics' where id=2;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee_payroll set department = 'maths' where id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+-------+---------+------------+
+| id | name   | gender | salary  | start      | phone | address | department |
++----+--------+--------+---------+------------+-------+---------+------------+
+|  1 | Bill   | M      | 5000000 | 2021-05-08 |  NULL | NULL    | biology    |
+|  2 | sohail | F      |  300000 | 2020-02-24 |  NULL | NULL    | physics    |
+|  3 | kabeer | M      | 6000000 | 2019-11-17 |  NULL | NULL    | maths      |
++----+--------+--------+---------+------------+-------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE employee_payroll ADD COLUMN `Basic pay` double  after `department`, ADD COLUMN `deduction` double  after `Basic pay`, ADD COLUMN `Taxable pay` double;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employee_payroll ADD COLUMN `Income Tax` double  after `Taxable Pay`, ADD COLUMN `Net Pay` double;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------+---------+------------+-------+---------+------------+-----------+-----------+-------------+------------+---------+
+| id | name   | gender | salary  | start      | phone | address | department | Basic pay | deduction | Taxable pay | Income Tax | Net Pay |
++----+--------+--------+---------+------------+-------+---------+------------+-----------+-----------+-------------+------------+---------+
+|  1 | Bill   | M      | 5000000 | 2021-05-08 |  NULL | NULL    | biology    |      NULL |      NULL |        NULL |       NULL |    NULL |
+|  2 | sohail | F      |  300000 | 2020-02-24 |  NULL | NULL    | physics    |      NULL |      NULL |        NULL |       NULL |    NULL |
+|  3 | kabeer | M      | 6000000 | 2019-11-17 |  NULL | NULL    | maths      |      NULL |      NULL |        NULL |       NULL |    NULL |
++----+--------+--------+---------+------------+-------+---------+------------+-----------+-----------+-------------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> exit
