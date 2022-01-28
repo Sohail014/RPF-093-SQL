@@ -1,0 +1,326 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| addressbookservice2 |
+| ebookshop           |
+| information_schema  |
+| mysql               |
+| payroll_service     |
+| performance_schema  |
+| sys                 |
++---------------------+
+7 rows in set (0.00 sec)
+
+mysql> create database addressbookservice;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| addressbookservice  |
+| addressbookservice2 |
+| ebookshop           |
+| information_schema  |
+| mysql               |
+| payroll_service     |
+| performance_schema  |
+| sys                 |
++---------------------+
+8 rows in set (0.01 sec)
+
+mysql> use addressbookservice;
+Database changed
+mysql> create table AddressBook (FirstName varchar(150) NOT NULL, lastName varchar(150) , address varchar(150), city varchar(30) , state varchar(30) , zipCode int NOT NULL , phoneNumber bigint NOT NULL , email varchar(50) );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> describe addressbookservice;
+ERROR 1146 (42S02): Table 'addressbookservice.addressbookservice' doesn't exist
+mysql> insert into addressbook value ('mohd','sohail','zakirNagar', 'delhi','delhi',262001,8449665776,'sohailss2010@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook;
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city  | state | zipCode | phoneNumber | email                  |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| mohd      | sohail   | zakirNagar | delhi | delhi |  262001 |  8449665776 | sohailss2010@gmail.com |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> update addressbook set address = 'jamiaNagar' where FirstName = 'mohd';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city  | state | zipCode | phoneNumber | email                  |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| mohd      | sohail   | jamiaNagar | delhi | delhi |  262001 |  8449665776 | sohailss2010@gmail.com |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql>  insert into addressbook value ('kabeer','khan','AvasVikas', 'Pilibhit','UttarPradesh',201310,9276589562,'kabeerkhan@gmail.com');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into addressbook value ('sonu','sood','GomtiNagar', 'lucknow','UttarPradesh',001310,8756589798,'sonusood@gmail.com');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from addressbook;
++-----------+----------+------------+----------+--------------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city     | state        | zipCode | phoneNumber | email                  |
++-----------+----------+------------+----------+--------------+---------+-------------+------------------------+
+| mohd      | sohail   | jamiaNagar | delhi    | delhi        |  262001 |  8449665776 | sohailss2010@gmail.com |
+| kabeer    | khan     | AvasVikas  | Pilibhit | UttarPradesh |  201310 |  9276589562 | kabeerkhan@gmail.com   |
+| sonu      | sood     | GomtiNagar | lucknow  | UttarPradesh |    1310 |  8756589798 | sonusood@gmail.com     |
++-----------+----------+------------+----------+--------------+---------+-------------+------------------------+
+3 rows in set (0.00 sec)
+
+mysql>  daelete from addressbook where FirstName = 'kabeer';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'daelete from addressbook where FirstName = 'kabeer'' at line 1
+mysql>  daelete from addressbook where FirstName = 'kabeer';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'daelete from addressbook where FirstName = 'kabeer'' at line 1
+mysql>  delete from addressbook where FirstName = 'kabeer';
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from addressbook;
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city    | state        | zipCode | phoneNumber | email                  |
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+| mohd      | sohail   | jamiaNagar | delhi   | delhi        |  262001 |  8449665776 | sohailss2010@gmail.com |
+| sonu      | sood     | GomtiNagar | lucknow | UttarPradesh |    1310 |  8756589798 | sonusood@gmail.com     |
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+2 rows in set (0.06 sec)
+
+mysql> mysql> select count(city) from addressbook where state = 'UttarPradesh' and city = 'lucknow';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select count(city) from addressbook where state = 'UttarPradesh' and city' at line 1
+mysql> mysql> select count(city) from addressbook where state = 'UttarPradesh' and city = 'lucknow';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select count(city) from addressbook where state = 'UttarPradesh' and city' at line 1
+mysql> ^C
+mysql> mysql> select count(city) from addressbook where state = 'UttarPradesh' and city = 'lucknow';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select count(city) from addressbook where state = 'UttarPradesh' and city' at line 1
+mysql> select count(city) from addressbook where state = 'UttarPradesh' and city = 'lucknow';
++-------------+
+| count(city) |
++-------------+
+|           1 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select * from addressbook where city = 'delhi' order by FirstName;
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city  | state | zipCode | phoneNumber | email                  |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| mohd      | sohail   | jamiaNagar | delhi | delhi |  262001 |  8449665776 | sohailss2010@gmail.com |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> select FirstName from addressbook ORDER BY FirstName;
++-----------+
+| FirstName |
++-----------+
+| mohd      |
+| sonu      |
++-----------+
+2 rows in set (0.03 sec)
+
+mysql>  select FirstName from addressbook ORDER BY FirstName desc;
++-----------+
+| FirstName |
++-----------+
+| sonu      |
+| mohd      |
++-----------+
+2 rows in set (0.00 sec)
+
+mysql> insert into addressbook value ('abeer','khan','bandra', 'mumbai','maharashtra',263009,7865876877,'abeer342@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook;
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city    | state        | zipCode | phoneNumber | email                  |
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+| mohd      | sohail   | jamiaNagar | delhi   | delhi        |  262001 |  8449665776 | sohailss2010@gmail.com |
+| sonu      | sood     | GomtiNagar | lucknow | UttarPradesh |    1310 |  8756589798 | sonusood@gmail.com     |
+| abeer     | khan     | bandra     | mumbai  | maharashtra  |  263009 |  7865876877 | abeer342@gmail.com     |
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+3 rows in set (0.03 sec)
+
+mysql> insert into addressbook value ('abeer','khan','bandra', 'mumbai','maharashtra',263009,7865876877,'abeer342@gmail.com');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from addressbook;
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city    | state        | zipCode | phoneNumber | email                  |
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+| mohd      | sohail   | jamiaNagar | delhi   | delhi        |  262001 |  8449665776 | sohailss2010@gmail.com |
+| sonu      | sood     | GomtiNagar | lucknow | UttarPradesh |    1310 |  8756589798 | sonusood@gmail.com     |
+| abeer     | khan     | bandra     | mumbai  | maharashtra  |  263009 |  7865876877 | abeer342@gmail.com     |
+| abeer     | khan     | bandra     | mumbai  | maharashtra  |  263009 |  7865876877 | abeer342@gmail.com     |
++-----------+----------+------------+---------+--------------+---------+-------------+------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select FirstName from addressbook where city = 'delhi' ORDER BY FirstName desc;
++-----------+
+| FirstName |
++-----------+
+| mohd      |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select (count)FirstName from addressbook where city = 'delhi' ORDER BY FirstName desc;
+ERROR 1054 (42S22): Unknown column 'count' in 'field list'
+mysql> select * from addressbook where city = 'delhi' ORDER BY FirstName desc;
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city  | state | zipCode | phoneNumber | email                  |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| mohd      | sohail   | jamiaNagar | delhi | delhi |  262001 |  8449665776 | sohailss2010@gmail.com |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbook where city = 'delhi' ORDER BY desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc' at line 1
+mysql> select * from addressbook where city = 'delhi' ORDER BY FirstName desc;
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city  | state | zipCode | phoneNumber | email                  |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| mohd      | sohail   | jamiaNagar | delhi | delhi |  262001 |  8449665776 | sohailss2010@gmail.com |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into addressbook value ('sonali','khanna','bandra', 'delhi','delhi',263009,7865876877,'abeer342@gmail.com');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from addressbook where city = 'delhi' ORDER BY FirstName desc;
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| FirstName | lastName | address    | city  | state | zipCode | phoneNumber | email                  |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+| sonali    | khanna   | bandra     | delhi | delhi |  263009 |  7865876877 | abeer342@gmail.com     |
+| mohd      | sohail   | jamiaNagar | delhi | delhi |  262001 |  8449665776 | sohailss2010@gmail.com |
++-----------+----------+------------+-------+-------+---------+-------------+------------------------+
+2 rows in set (0.03 sec)
+
+mysql> alter table addressbook add type varchar(50) after lastName
+    -> alter table addressbook add type varchar(50) after lastName;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'alter table addressbook add type varchar(50) after lastName' at line 2
+mysql> alter table addressbook add type varchar(50) after lastName;
+Query OK, 0 rows affected (0.21 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+----------+------+------------+---------+--------------+---------+-------------+------------------------+
+| FirstName | lastName | type | address    | city    | state        | zipCode | phoneNumber | email                  |
++-----------+----------+------+------------+---------+--------------+---------+-------------+------------------------+
+| mohd      | sohail   | NULL | jamiaNagar | delhi   | delhi        |  262001 |  8449665776 | sohailss2010@gmail.com |
+| sonu      | sood     | NULL | GomtiNagar | lucknow | UttarPradesh |    1310 |  8756589798 | sonusood@gmail.com     |
+| abeer     | khan     | NULL | bandra     | mumbai  | maharashtra  |  263009 |  7865876877 | abeer342@gmail.com     |
+| abeer     | khan     | NULL | bandra     | mumbai  | maharashtra  |  263009 |  7865876877 | abeer342@gmail.com     |
+| sonali    | khanna   | NULL | bandra     | delhi   | delhi        |  263009 |  7865876877 | abeer342@gmail.com     |
++-----------+----------+------+------------+---------+--------------+---------+-------------+------------------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into addressbook value ('Amit','saroja','family','ZakirNagar', 'khatima','UttraKhand',824006,9978456313,'amitsaroja1@gmail.com');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into addressbook value ('bablu','sharma','friend','sarojNagar', 'khatima','UttraKhand',824006,9978456313,'babluSharma1@gmail.com');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into addressbook value ('tillo','katiyaar','friend','sarojNagar', 'khatima','UttraKhand',824006,9978456313,'babluSharma1@gmail.com');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into addressbook value ('shamita','sharma','friend','sarojNagar', 'munbai','maharashtra',824006,9978456313,'shamitaSharma1@gmail.com');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into addressbook value ('prateek','kumaar','family','sarojNagar', 'munbai','maharashtra',824006,9978456313,'prateekkumaar1@gmail.com');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from addressbook;
++-----------+----------+--------+------------+---------+--------------+---------+-------------+--------------------------+
+| FirstName | lastName | type   | address    | city    | state        | zipCode | phoneNumber | email                    |
++-----------+----------+--------+------------+---------+--------------+---------+-------------+--------------------------+
+| mohd      | sohail   | NULL   | jamiaNagar | delhi   | delhi        |  262001 |  8449665776 | sohailss2010@gmail.com   |
+| sonu      | sood     | NULL   | GomtiNagar | lucknow | UttarPradesh |    1310 |  8756589798 | sonusood@gmail.com       |
+| abeer     | khan     | NULL   | bandra     | mumbai  | maharashtra  |  263009 |  7865876877 | abeer342@gmail.com       |
+| abeer     | khan     | NULL   | bandra     | mumbai  | maharashtra  |  263009 |  7865876877 | abeer342@gmail.com       |
+| sonali    | khanna   | NULL   | bandra     | delhi   | delhi        |  263009 |  7865876877 | abeer342@gmail.com       |
+| Amit      | saroja   | family | ZakirNagar | khatima | UttraKhand   |  824006 |  9978456313 | amitsaroja1@gmail.com    |
+| bablu     | sharma   | friend | sarojNagar | khatima | UttraKhand   |  824006 |  9978456313 | babluSharma1@gmail.com   |
+| tillo     | katiyaar | friend | sarojNagar | khatima | UttraKhand   |  824006 |  9978456313 | babluSharma1@gmail.com   |
+| shamita   | sharma   | friend | sarojNagar | munbai  | maharashtra  |  824006 |  9978456313 | shamitaSharma1@gmail.com |
+| prateek   | kumaar   | family | sarojNagar | munbai  | maharashtra  |  824006 |  9978456313 | prateekkumaar1@gmail.com |
++-----------+----------+--------+------------+---------+--------------+---------+-------------+--------------------------+
+10 rows in set (0.00 sec)
+
+mysql> DELETE FROM addressbook where FirstName = 'abeer';
+Query OK, 2 rows affected (0.03 sec)
+
+mysql> DELETE FROM addressbook wherae FirstName = 'sonali';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FirstName = 'sonali'' at line 1
+mysql> DELETE FROM addressbook wherae FirstName = 'sonu';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FirstName = 'sonu'' at line 1
+mysql> DELETE FROM addressbook where FirstName = 'sonu';
+Query OK, 1 row affected (0.03 sec)
+
+mysql> DELETE FROM addressbook where FirstName = 'sonali';
+Query OK, 1 row affected (0.03 sec)
+
+mysql> DELETE FROM addressbook where FirstName = 'abeer';
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DELETE FROM addressbook where lastName = 'sohail';
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from addressbook;
++-----------+----------+--------+------------+---------+-------------+---------+-------------+--------------------------+
+| FirstName | lastName | type   | address    | city    | state       | zipCode | phoneNumber | email                    |
++-----------+----------+--------+------------+---------+-------------+---------+-------------+--------------------------+
+| Amit      | saroja   | family | ZakirNagar | khatima | UttraKhand  |  824006 |  9978456313 | amitsaroja1@gmail.com    |
+| bablu     | sharma   | friend | sarojNagar | khatima | UttraKhand  |  824006 |  9978456313 | babluSharma1@gmail.com   |
+| tillo     | katiyaar | friend | sarojNagar | khatima | UttraKhand  |  824006 |  9978456313 | babluSharma1@gmail.com   |
+| shamita   | sharma   | friend | sarojNagar | munbai  | maharashtra |  824006 |  9978456313 | shamitaSharma1@gmail.com |
+| prateek   | kumaar   | family | sarojNagar | munbai  | maharashtra |  824006 |  9978456313 | prateekkumaar1@gmail.com |
++-----------+----------+--------+------------+---------+-------------+---------+-------------+--------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(FirstName) from addressbook where type = 'Family' ;
++------------------+
+| count(FirstName) |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(FirstName) from addressbook where type = 'Friend' ;
++------------------+
+| count(FirstName) |
++------------------+
+|                3 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbook;
++-----------+----------+--------+------------+---------+-------------+---------+-------------+--------------------------+
+| FirstName | lastName | type   | address    | city    | state       | zipCode | phoneNumber | email                    |
++-----------+----------+--------+------------+---------+-------------+---------+-------------+--------------------------+
+| Amit      | saroja   | family | ZakirNagar | khatima | UttraKhand  |  824006 |  9978456313 | amitsaroja1@gmail.com    |
+| bablu     | sharma   | friend | sarojNagar | khatima | UttraKhand  |  824006 |  9978456313 | babluSharma1@gmail.com   |
+| tillo     | katiyaar | friend | sarojNagar | khatima | UttraKhand  |  824006 |  9978456313 | babluSharma1@gmail.com   |
+| shamita   | sharma   | friend | sarojNagar | munbai  | maharashtra |  824006 |  9978456313 | shamitaSharma1@gmail.com |
+| prateek   | kumaar   | family | sarojNagar | munbai  | maharashtra |  824006 |  9978456313 | prateekkumaar1@gmail.com |
++-----------+----------+--------+------------+---------+-------------+---------+-------------+--------------------------+
+5 rows in set (0.00 sec)
+
+mysql>
