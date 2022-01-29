@@ -303,14 +303,6 @@ mysql> select count(FirstName) from addressbook where type = 'Family' ;
 +------------------+
 1 row in set (0.00 sec)
 
-mysql> select count(FirstName) from addressbook where type = 'Friend' ;
-+------------------+
-| count(FirstName) |
-+------------------+
-|                3 |
-+------------------+
-1 row in set (0.00 sec)
-
 mysql> select * from addressbook;
 +-----------+----------+--------+------------+---------+-------------+---------+-------------+--------------------------+
 | FirstName | lastName | type   | address    | city    | state       | zipCode | phoneNumber | email                    |
